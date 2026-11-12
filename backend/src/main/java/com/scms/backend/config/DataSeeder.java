@@ -25,7 +25,7 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     private void seedRoles() {
-        List<String> roles = Arrays.asList("REPORTER", "DEPARTMENT_COORDINATOR", "STAFF");
+        List<String> roles = Arrays.asList("REPORTER", "DEPARTMENT_COORDINATOR", "STAFF", "ADMIN");
         for (String roleName : roles) {
             if (roleRepository.findByName(roleName).isEmpty()) {
                 Role role = new Role();

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,32 +20,28 @@ public class ComplaintController {
     private ComplaintService complaintService;
 
     @PostMapping(consumes = {"multipart/form-data"})
-    @PreAuthorize("hasRole('REPORTER') or hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR')")
+    @PreAuthorize("hasRole('REPORTER') or hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR') or hasRole('ADMIN')")
     public ResponseEntity<ComplaintResponse> createComplaint(
             @ModelAttribute ComplaintRequest request,
-            Authentication authentication) {
-        try {
-            ComplaintResponse response = complaintService.createComplaint(request, authentication.getName());
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+            Authentication authentication) throws Exception {
+        ComplaintResponse response = complaintService.createComplaint(request, authentication.getName());
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('DEPARTMENT_COORDINATOR') or hasRole('STAFF') or hasRole('REPORTER')")
+    @PreAuthorize("hasRole('REPORTER') or hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<ComplaintResponse>> getAllComplaints(Authentication authentication) {
         return ResponseEntity.ok(complaintService.getAllComplaints(authentication.getName()));
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('REPORTER') or hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR')")
+    @PreAuthorize("hasRole('REPORTER') or hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR') or hasRole('ADMIN')")
     public ResponseEntity<ComplaintResponse> getComplaintById(@PathVariable Long id, Authentication authentication) {
         return ResponseEntity.ok(complaintService.getComplaintById(id, authentication.getName()));
     }
     
     @PatchMapping("/{id}/status")
-    @PreAuthorize("hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR')")
+    @PreAuthorize("hasRole('STAFF') or hasRole('DEPARTMENT_COORDINATOR') or hasRole('ADMIN')")
     public ResponseEntity<ComplaintResponse> updateStatus(
             @PathVariable Long id,
             @RequestParam String status,
@@ -56,7 +51,7 @@ public class ComplaintController {
     }
 
     @PatchMapping("/{id}/assign")
-    @PreAuthorize("hasRole('DEPARTMENT_COORDINATOR')")
+    @PreAuthorize("hasRole('DEPARTMENT_COORDINATOR') or hasRole('ADMIN')")
     public ResponseEntity<ComplaintResponse> assignComplaint(
             @PathVariable Long id,
             @RequestParam Long staffId,

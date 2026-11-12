@@ -6,10 +6,11 @@ import com.scms.backend.dto.MessageResponse;
 import com.scms.backend.dto.SignupRequest;
 import com.scms.backend.entity.Role;
 import com.scms.backend.entity.User;
+import com.scms.backend.entity.Department;
+import com.scms.backend.exception.ResourceNotFoundException;
 import com.scms.backend.repository.RoleRepository;
 import com.scms.backend.repository.UserRepository;
 import com.scms.backend.repository.DepartmentRepository;
-import com.scms.backend.entity.Department;
 import com.scms.backend.security.JwtUtils;
 import com.scms.backend.security.UserDetailsImpl;
 import jakarta.validation.Valid;
@@ -89,34 +90,15 @@ public class AuthController {
         user.setPassword(encoder.encode(signUpRequest.getPassword()));
         user.setPhone(signUpRequest.getPhone());
 
-        String strRole = signUpRequest.getRole();
-        Role userRole;
-
-        if (strRole == null) {
-            userRole = roleRepository.findByName("REPORTER")
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        } else {
-            switch (strRole.toUpperCase()) {
-                case "DEPARTMENT_COORDINATOR":
-                    userRole = roleRepository.findByName("DEPARTMENT_COORDINATOR")
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    break;
-                case "STAFF":
-                    userRole = roleRepository.findByName("STAFF")
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                    break;
-                case "REPORTER":
-                default:
-                    userRole = roleRepository.findByName("REPORTER")
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            }
-        }
-
+        // Security: Public registration always assigns the safe default role REPORTER.
+        // Privileged roles (STAFF, DEPARTMENT_COORDINATOR, ADMIN) require administrative provisioning.
+        Role userRole = roleRepository.findByName("REPORTER")
+                .orElseThrow(() -> new ResourceNotFoundException("Error: Role REPORTER is not found."));
         user.setRole(userRole);
         
         if (signUpRequest.getDepartmentId() != null) {
             Department department = departmentRepository.findById(signUpRequest.getDepartmentId())
-                    .orElseThrow(() -> new RuntimeException("Error: Department is not found."));
+                    .orElse(null);
             user.setDepartment(department);
         }
 

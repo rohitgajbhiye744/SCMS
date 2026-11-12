@@ -43,6 +43,10 @@ lerna-debug.log*
 *.iws
 *.iml
 *.ipr
+.classpath
+.factorypath
+.project
+.settings/
 
 # OS generated files
 .DS_Store
@@ -52,3 +56,4 @@ lerna-debug.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+/.metadata/
