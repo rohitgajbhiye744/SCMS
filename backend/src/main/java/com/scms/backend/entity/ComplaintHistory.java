@@ -31,7 +31,7 @@ public class ComplaintHistory {
     @JoinColumn(name = "changed_by_user_id", nullable = false)
     private User changedBy;
 
-    @Column(nullable = false, columnDefinition = "DATETIME")
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 

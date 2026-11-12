@@ -58,7 +58,7 @@ public class Complaint {
     @OneToMany(mappedBy = "complaint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ComplaintHistory> history;
 
-    @Column(name = "date_submitted", columnDefinition = "DATETIME")
+    @Column(name = "date_submitted")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateSubmitted;
 

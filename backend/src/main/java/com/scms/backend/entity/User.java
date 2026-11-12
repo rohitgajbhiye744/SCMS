@@ -37,7 +37,7 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @Column(name = "created_at", columnDefinition = "DATETIME")
+    @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
