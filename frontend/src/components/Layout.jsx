@@ -22,9 +22,9 @@ export default function Layout() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
+        <div className="h-screen bg-gray-50 flex flex-col md:flex-row overflow-hidden">
             {/* Mobile Header */}
-            <div className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4 sticky top-0 z-20">
+            <div className="md:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4 flex-shrink-0 z-20">
                 <h1 className="text-xl font-bold text-gray-900 tracking-tight">SCMS</h1>
                 <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -45,8 +45,8 @@ export default function Layout() {
             {/* Sidebar */}
             <aside className={`${
                 isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-            } fixed inset-y-0 left-0 z-20 w-64 bg-white border-r border-gray-200 transition-transform duration-200 ease-in-out md:relative md:translate-x-0 flex flex-col`}>
-                <div className="h-16 flex items-center px-6 border-b border-gray-200 hidden md:flex">
+            } fixed inset-y-0 left-0 z-20 w-64 bg-white border-r border-gray-200 transition-transform duration-200 ease-in-out md:static md:translate-x-0 flex flex-col h-full flex-shrink-0`}>
+                <div className="h-16 flex items-center px-6 border-b border-gray-200 hidden md:flex flex-shrink-0">
                     <h1 className="text-xl font-bold text-gray-900 tracking-tight">SCMS</h1>
                 </div>
                 <div className="p-4 flex flex-col flex-1 overflow-y-auto">
@@ -76,7 +76,7 @@ export default function Layout() {
 
                     </nav>
                     
-                    <div className="border-t pt-4">
+                    <div className="border-t pt-4 flex-shrink-0">
                         <div className="px-2 py-2">
                             <p className="text-sm font-medium text-gray-700 truncate">{user.username}</p>
                             <p className="text-xs text-gray-500 truncate">{user.email}</p>
@@ -93,7 +93,7 @@ export default function Layout() {
             </aside>
 
             {/* Main content */}
-            <main className="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 md:p-8 w-full">
+            <main className="flex-1 h-full overflow-y-auto bg-gray-50 p-4 sm:p-6 md:p-8 w-full">
                 <Outlet />
             </main>
         </div>
