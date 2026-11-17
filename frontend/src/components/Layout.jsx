@@ -67,6 +67,12 @@ export default function Layout() {
                                 {user.role === 'ROLE_STAFF' ? 'Assigned Tasks' : 'All Complaints'}
                             </NavLink>
                         )}
+                        {user.role === 'ROLE_ADMIN' && (
+                            <NavLink to="/analytics" className={({isActive}) => `flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'}`}>
+                                <BarChart2 className="mr-3 h-5 w-5" />
+                                Analytics
+                            </NavLink>
+                        )}
 
                     </nav>
                     

@@ -6,9 +6,15 @@ import { useForm } from 'react-hook-form';
 export default function Login() {
     const { login } = useAuth();
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    const fillDemo = (username) => {
+        setValue('username', username, { shouldValidate: true });
+        setValue('password', 'password123', { shouldValidate: true });
+        setError('');
+    };
 
     const onSubmit = async (data) => {
         try {
@@ -34,7 +40,45 @@ export default function Login() {
                         Smart Complaint Management System
                     </p>
                 </div>
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+
+                {/* Demo Quick-Fill Bar */}
+                <div className="p-3 bg-gray-50 rounded-md border border-gray-200">
+                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider text-center mb-2">
+                        Demo Accounts (Click to Fill)
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                        <button
+                            type="button"
+                            onClick={() => fillDemo('reporter')}
+                            className="px-2 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:border-gray-400 transition-colors text-center shadow-sm"
+                        >
+                            Reporter
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => fillDemo('coordinator')}
+                            className="px-2 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:border-gray-400 transition-colors text-center shadow-sm"
+                        >
+                            Coordinator
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => fillDemo('staff')}
+                            className="px-2 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:border-gray-400 transition-colors text-center shadow-sm"
+                        >
+                            Staff
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => fillDemo('admin')}
+                            className="px-2 py-1.5 text-xs font-medium rounded border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 hover:border-gray-400 transition-colors text-center shadow-sm"
+                        >
+                            Admin
+                        </button>
+                    </div>
+                </div>
+
+                <form className="mt-6 space-y-6" onSubmit={handleSubmit(onSubmit)}>
                     {error && (
                         <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
                             <p className="text-sm text-red-700">{error}</p>
