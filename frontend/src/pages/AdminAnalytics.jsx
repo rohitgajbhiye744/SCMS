@@ -52,17 +52,21 @@ export default function AdminAnalytics() {
     const statusData = Object.keys(statusCounts).map(key => ({ name: key, value: statusCounts[key] }));
     const timelineData = Object.keys(timelineCounts).map(key => ({ date: key, count: timelineCounts[key] }));
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658'];
+    // Palette: https://colorhunt.co/palette/fffbf5f7efe5c3acd0674188
+    const COLORS = ['#674188', '#8655AD', '#A679CD', '#C3ACD0', '#E5D8EE'];
 
     return (
         <div className="space-y-6">
-            <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+            <div>
+                <h1 className="text-2xl font-bold text-[#281B34] tracking-tight">Analytics Dashboard</h1>
+                <p className="text-sm text-[#7A668A] mt-1">Cross-department complaints metrics and trends.</p>
+            </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
                 {/* Status Chart */}
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-4">Complaints by Status</h2>
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-[#C3ACD0]/40">
+                    <h2 className="text-base font-semibold text-[#281B34] mb-4">Complaints by Status</h2>
                     <div className="h-64">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
@@ -71,7 +75,7 @@ export default function AdminAnalytics() {
                                     cx="50%"
                                     cy="50%"
                                     outerRadius={80}
-                                    fill="#8884d8"
+                                    fill="#674188"
                                     dataKey="value"
                                     label
                                 >
@@ -87,32 +91,32 @@ export default function AdminAnalytics() {
                 </div>
 
                 {/* Category Chart */}
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-4">Complaints by Category</h2>
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-[#C3ACD0]/40">
+                    <h2 className="text-base font-semibold text-[#281B34] mb-4">Complaints by Category</h2>
                     <div className="h-64">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={categoryData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" />
-                                <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="value" fill="#3b82f6" />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E8DEC8" />
+                                <XAxis dataKey="name" tick={{fill: '#7A668A', fontSize: 12}} />
+                                <YAxis tick={{fill: '#7A668A', fontSize: 12}} />
+                                <Tooltip cursor={{fill: '#F7EFE5'}} />
+                                <Bar dataKey="value" fill="#674188" radius={[6, 6, 0, 0]} />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
 
                 {/* Timeline Chart */}
-                <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-4">Complaint Trends Over Time</h2>
+                <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-[#C3ACD0]/40">
+                    <h2 className="text-base font-semibold text-[#281B34] mb-4">Complaint Trends Over Time</h2>
                     <div className="h-64">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={timelineData}>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" />
-                                <YAxis />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E8DEC8" />
+                                <XAxis dataKey="date" tick={{fill: '#7A668A', fontSize: 12}} />
+                                <YAxis tick={{fill: '#7A668A', fontSize: 12}} />
                                 <Tooltip />
-                                <Line type="monotone" dataKey="count" stroke="#8b5cf6" strokeWidth={2} />
+                                <Line type="monotone" dataKey="count" stroke="#674188" strokeWidth={2.5} dot={{ fill: '#674188', r: 4 }} activeDot={{ r: 6 }} />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>

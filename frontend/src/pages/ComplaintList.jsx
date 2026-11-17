@@ -59,36 +59,36 @@ export default function ComplaintList() {
     return (
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-                <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+                <h1 className="text-2xl font-bold text-[#281B34] tracking-tight">
                     {user.role === 'ROLE_REPORTER' ? 'My Complaints' : user.role === 'ROLE_STAFF' ? 'Assigned Tasks' : 'All Complaints'}
                 </h1>
                 {user.role === 'ROLE_REPORTER' && (
                     <Link
                         to="/complaints/new"
-                        className="bg-gray-900 text-white px-4 py-2 text-sm font-medium rounded-md hover:bg-gray-800 transition-colors"
+                        className="bg-[#674188] text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-[#543372] transition-colors shadow-sm"
                     >
                         New Complaint
                     </Link>
                 )}
             </div>
 
-            <div className="bg-white p-4 rounded-md shadow-sm border border-gray-200 flex flex-col sm:flex-row gap-4">
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-[#C3ACD0]/40 flex flex-col sm:flex-row gap-4">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#674188] h-5 w-5" />
                     <input
                         type="text"
                         placeholder="Search by ID or Title..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full pl-10 pr-4 py-2 border border-[#C3ACD0]/60 rounded-lg text-[#281B34] placeholder-[#7A668A] focus:outline-none focus:ring-2 focus:ring-[#674188] focus:border-[#674188]"
                     />
                 </div>
                 <div className="relative w-full sm:w-64">
-                    <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                    <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#674188] h-5 w-5" />
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 appearance-none bg-white"
+                        className="w-full pl-10 pr-4 py-2 border border-[#C3ACD0]/60 rounded-lg text-[#281B34] focus:outline-none focus:ring-2 focus:ring-[#674188] focus:border-[#674188] appearance-none bg-white"
                     >
                         <option value="All">All Statuses</option>
                         <option value="Submitted">Submitted</option>
@@ -100,48 +100,48 @@ export default function ComplaintList() {
                 </div>
             </div>
 
-            <div className="bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden">
+            <div className="bg-white rounded-xl shadow-sm border border-[#C3ACD0]/40 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-[#C3ACD0]/30">
+                        <thead className="bg-[#F7EFE5]">
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th className="px-6 py-3.5 text-left text-xs font-semibold text-[#543372] uppercase tracking-wider">ID</th>
+                                <th className="px-6 py-3.5 text-left text-xs font-semibold text-[#543372] uppercase tracking-wider">Title</th>
+                                <th className="px-6 py-3.5 text-left text-xs font-semibold text-[#543372] uppercase tracking-wider">Category</th>
+                                <th className="px-6 py-3.5 text-left text-xs font-semibold text-[#543372] uppercase tracking-wider">Status</th>
+                                <th className="px-6 py-3.5 text-left text-xs font-semibold text-[#543372] uppercase tracking-wider">Date</th>
+                                <th className="px-6 py-3.5 text-right text-xs font-semibold text-[#543372] uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-white divide-y divide-[#C3ACD0]/20">
                             {filteredComplaints.length === 0 ? (
                                 <tr>
-                                    <td colSpan="6" className="px-6 py-8 text-center text-gray-500">
+                                    <td colSpan="6" className="px-6 py-8 text-center text-[#7A668A]">
                                         No complaints found.
                                     </td>
                                 </tr>
                             ) : (
                                 filteredComplaints.map((complaint) => (
-                                    <tr key={complaint.id} className="hover:bg-gray-50">
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <tr key={complaint.id} className="hover:bg-[#F7EFE5]/40 transition-colors">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-[#674188]">
                                             #{complaint.id}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#281B34] font-medium">
                                             {complaint.title}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#7A668A]">
                                             {complaint.category}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-md border ${
-                                                complaint.status === 'Resolved' || complaint.status === 'Closed' ? 'bg-gray-50 text-gray-700 border-gray-200' :
-                                                complaint.status === 'In Progress' ? 'bg-gray-900 text-white border-gray-900' :
-                                                'bg-white text-gray-700 border-gray-300'
+                                            <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full border ${
+                                                complaint.status === 'Resolved' || complaint.status === 'Closed' ? 'bg-[#F7EFE5] text-[#674188] border-[#C3ACD0]' :
+                                                complaint.status === 'In Progress' ? 'bg-[#674188] text-white border-[#674188]' :
+                                                'bg-[#C3ACD0]/20 text-[#543372] border-[#C3ACD0]'
                                             }`}>
                                                 {complaint.status}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-[#7A668A]">
                                             {new Date(complaint.dateSubmitted).toLocaleDateString()}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -150,15 +150,15 @@ export default function ComplaintList() {
                                                     <select 
                                                         onChange={(e) => handleAssign(complaint.id, e.target.value)}
                                                         disabled={assigningId === complaint.id}
-                                                        className="text-xs border border-gray-300 rounded-md py-1 px-2 focus:outline-none focus:ring-1 focus:ring-gray-900 focus:border-gray-900 bg-white"
+                                                        className="text-xs border border-[#C3ACD0] rounded-md py-1 px-2 focus:outline-none focus:ring-1 focus:ring-[#674188] focus:border-[#674188] bg-white text-[#281B34]"
                                                     >
                                                         <option value="">Quick Assign...</option>
                                                         {staffList.map(staff => (
-                                                            <option key={staff.id} value={staff.id}>{staff.username}</option>
+                                                             <option key={staff.id} value={staff.id}>{staff.username}</option>
                                                         ))}
                                                     </select>
                                                 )}
-                                                <Link to={`/complaints/${complaint.id}`} className="text-gray-600 hover:text-gray-900 inline-flex items-center">
+                                                <Link to={`/complaints/${complaint.id}`} className="text-[#674188] hover:text-[#543372] inline-flex items-center font-medium">
                                                     <Eye className="h-4 w-4 mr-1" /> View
                                                 </Link>
                                             </div>

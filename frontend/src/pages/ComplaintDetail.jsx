@@ -80,14 +80,14 @@ export default function ComplaintDetail() {
     return (
         <div className="space-y-6 max-w-5xl mx-auto">
             <div className="flex items-center space-x-4">
-                <Link to="/complaints" className="p-2 bg-white rounded-md shadow-sm hover:bg-gray-50 border border-gray-200 text-gray-600 transition-colors">
+                <Link to="/complaints" className="p-2 bg-white rounded-lg shadow-sm hover:bg-[#F7EFE5] border border-[#C3ACD0]/50 text-[#674188] transition-colors">
                     <ArrowLeft className="h-5 w-5" />
                 </Link>
-                <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Complaint #{complaint.id}</h1>
-                <span className={`px-2.5 py-0.5 text-xs font-medium rounded-md border ${
-                    complaint.status === 'Resolved' || complaint.status === 'Closed' ? 'bg-gray-50 text-gray-700 border-gray-200' :
-                    complaint.status === 'In Progress' ? 'bg-gray-900 text-white border-gray-900' :
-                    'bg-white text-gray-700 border-gray-300'
+                <h1 className="text-2xl font-bold text-[#281B34] tracking-tight">Complaint #{complaint.id}</h1>
+                <span className={`px-2.5 py-0.5 text-xs font-medium rounded-full border ${
+                    complaint.status === 'Resolved' || complaint.status === 'Closed' ? 'bg-[#F7EFE5] text-[#674188] border-[#C3ACD0]' :
+                    complaint.status === 'In Progress' ? 'bg-[#674188] text-white border-[#674188]' :
+                    'bg-[#C3ACD0]/20 text-[#543372] border-[#C3ACD0]'
                 }`}>
                     {complaint.status}
                 </span>
@@ -96,19 +96,19 @@ export default function ComplaintDetail() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Details */}
                 <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white rounded-md shadow-sm border border-gray-200 p-6">
-                        <h2 className="text-xl font-semibold text-gray-900 mb-4">{complaint.title}</h2>
-                        <div className="prose max-w-none text-gray-600 mb-6">
+                    <div className="bg-white rounded-xl shadow-sm border border-[#C3ACD0]/40 p-6">
+                        <h2 className="text-xl font-semibold text-[#281B34] mb-4">{complaint.title}</h2>
+                        <div className="prose max-w-none text-[#543372] mb-6 leading-relaxed">
                             {complaint.description}
                         </div>
                         
                         {complaint.imageUrls && complaint.imageUrls.length > 0 && (
                             <div>
-                                <h3 className="text-sm font-medium text-gray-900 mb-3">Attached Images</h3>
+                                <h3 className="text-sm font-semibold text-[#281B34] mb-3">Attached Images</h3>
                                 <div className="flex flex-wrap gap-4">
                                     {complaint.imageUrls.map((url, idx) => (
                                         <a key={idx} href={url} target="_blank" rel="noopener noreferrer">
-                                            <img src={url} alt="Complaint Attachment" className="w-32 h-32 object-cover rounded-md border border-gray-200" />
+                                            <img src={url} alt="Complaint Attachment" className="w-32 h-32 object-cover rounded-lg border border-[#C3ACD0]/50" />
                                         </a>
                                     ))}
                                 </div>
@@ -118,19 +118,19 @@ export default function ComplaintDetail() {
 
                     {/* Management Section */}
                     {(canUpdateStatus || (user.role === 'ROLE_DEPARTMENT_COORDINATOR' && !complaint.assignedStaffEmail)) && (
-                        <div className="bg-white rounded-md shadow-sm border border-gray-200 p-6">
-                            <h3 className="text-lg font-medium text-gray-900 mb-6">Manage Complaint</h3>
+                        <div className="bg-white rounded-xl shadow-sm border border-[#C3ACD0]/40 p-6">
+                            <h3 className="text-lg font-semibold text-[#281B34] mb-6">Manage Complaint</h3>
                             <div className="space-y-8">
                                 {/* Assignment Form for Coordinator */}
                                 {user.role === 'ROLE_DEPARTMENT_COORDINATOR' && (!complaint.assignedStaffEmail) && (
-                                    <form onSubmit={handleAssign} className="space-y-4 pb-8 border-b border-gray-100">
+                                    <form onSubmit={handleAssign} className="space-y-4 pb-8 border-b border-[#C3ACD0]/30">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Assign to Staff</label>
+                                            <label className="block text-sm font-medium text-[#281B34] mb-1">Assign to Staff</label>
                                             <div className="flex space-x-3">
                                                 <select
                                                     value={selectedStaff}
                                                     onChange={(e) => setSelectedStaff(e.target.value)}
-                                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-gray-900 focus:border-gray-900 bg-white text-sm"
+                                                    className="flex-1 px-4 py-2 border border-[#C3ACD0]/60 rounded-lg focus:ring-2 focus:ring-[#674188] focus:border-[#674188] bg-white text-sm text-[#281B34]"
                                                     required
                                                 >
                                                     <option value="">-- Select Staff Member --</option>
@@ -141,7 +141,7 @@ export default function ComplaintDetail() {
                                                 <button
                                                     type="submit"
                                                     disabled={isAssigning || !selectedStaff}
-                                                    className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 disabled:opacity-50 transition-colors whitespace-nowrap"
+                                                    className="px-4 py-2 bg-[#674188] text-white text-sm font-medium rounded-lg hover:bg-[#543372] disabled:opacity-50 transition-colors whitespace-nowrap shadow-sm"
                                                 >
                                                     {isAssigning ? 'Assigning...' : 'Assign'}
                                                 </button>
@@ -154,11 +154,11 @@ export default function ComplaintDetail() {
                                 {canUpdateStatus && (
                                     <form onSubmit={handleStatusUpdate} className="space-y-4">
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Update Status</label>
+                                            <label className="block text-sm font-medium text-[#281B34] mb-1">Update Status</label>
                                             <select
                                                 value={statusUpdate}
                                                 onChange={(e) => setStatusUpdate(e.target.value)}
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-gray-900 focus:border-gray-900 bg-white text-sm"
+                                                className="w-full px-4 py-2 border border-[#C3ACD0]/60 rounded-lg focus:ring-2 focus:ring-[#674188] focus:border-[#674188] bg-white text-sm text-[#281B34]"
                                             >
                                                 <option value="In Progress">In Progress</option>
                                                 <option value="Resolved">Resolved</option>
@@ -166,20 +166,20 @@ export default function ComplaintDetail() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Remarks</label>
+                                            <label className="block text-sm font-medium text-[#281B34] mb-1">Remarks</label>
                                             <textarea
                                                 value={remarks}
                                                 onChange={(e) => setRemarks(e.target.value)}
                                                 rows={3}
                                                 placeholder="Add remarks about the update..."
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-gray-900 focus:border-gray-900 text-sm"
+                                                className="w-full px-4 py-2 border border-[#C3ACD0]/60 rounded-lg focus:ring-2 focus:ring-[#674188] focus:border-[#674188] text-sm text-[#281B34]"
                                                 required
                                             />
                                         </div>
                                         <button
                                             type="submit"
                                             disabled={isUpdating}
-                                            className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-800 disabled:opacity-50 transition-colors"
+                                            className="px-4 py-2 bg-[#674188] text-white text-sm font-medium rounded-lg hover:bg-[#543372] disabled:opacity-50 transition-colors shadow-sm"
                                         >
                                             {isUpdating ? 'Updating...' : 'Update Status'}
                                         </button>
@@ -192,54 +192,66 @@ export default function ComplaintDetail() {
 
                 {/* Sidebar Details */}
                 <div className="space-y-6">
-                    <div className="bg-white rounded-md shadow-sm border border-gray-200 p-6">
-                        <h3 className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-4">Complaint Info</h3>
+                    <div className="bg-white rounded-xl shadow-sm border border-[#C3ACD0]/40 p-6">
+                        <h3 className="text-xs font-semibold text-[#674188] uppercase tracking-wider mb-4">Complaint Info</h3>
                         <div className="space-y-4">
                             <div className="flex items-start space-x-3">
-                                <Clock className="h-5 w-5 text-gray-400 mt-0.5" />
+                                <div className="p-1.5 bg-[#C3ACD0]/20 rounded-lg">
+                                    <Clock className="h-4 w-4 text-[#674188]" />
+                                </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Submitted On</p>
-                                    <p className="text-sm text-gray-500">{new Date(complaint.dateSubmitted).toLocaleString()}</p>
+                                    <p className="text-xs font-medium text-[#7A668A]">Submitted On</p>
+                                    <p className="text-sm font-medium text-[#281B34]">{new Date(complaint.dateSubmitted).toLocaleString()}</p>
                                 </div>
                             </div>
                             <div className="flex items-start space-x-3">
-                                <User className="h-5 w-5 text-gray-400 mt-0.5" />
+                                <div className="p-1.5 bg-[#C3ACD0]/20 rounded-lg">
+                                    <User className="h-4 w-4 text-[#674188]" />
+                                </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Reporter</p>
-                                    <p className="text-sm text-gray-500">{complaint.userEmail}</p>
+                                    <p className="text-xs font-medium text-[#7A668A]">Reporter</p>
+                                    <p className="text-sm font-medium text-[#281B34]">{complaint.userEmail}</p>
                                 </div>
                             </div>
                             <div className="flex items-start space-x-3">
-                                <AlertTriangle className="h-5 w-5 text-gray-400 mt-0.5" />
+                                <div className="p-1.5 bg-[#C3ACD0]/20 rounded-lg">
+                                    <AlertTriangle className="h-4 w-4 text-[#674188]" />
+                                </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-900">Category & Priority</p>
-                                    <p className="text-sm text-gray-500">{complaint.category} • {complaint.priority}</p>
+                                    <p className="text-xs font-medium text-[#7A668A]">Category & Priority</p>
+                                    <p className="text-sm font-medium text-[#281B34]">{complaint.category} • {complaint.priority}</p>
                                 </div>
                             </div>
                             {complaint.roomNumber && (
                                 <div className="flex items-start space-x-3">
-                                    <MapPin className="h-5 w-5 text-gray-400 mt-0.5" />
+                                    <div className="p-1.5 bg-[#C3ACD0]/20 rounded-lg">
+                                        <MapPin className="h-4 w-4 text-[#674188]" />
+                                    </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">Room Number</p>
-                                        <p className="text-sm text-gray-500">{complaint.roomNumber}</p>
+                                        <p className="text-xs font-medium text-[#7A668A]">Room Number</p>
+                                        <p className="text-sm font-medium text-[#281B34]">{complaint.roomNumber}</p>
                                     </div>
                                 </div>
                             )}
                             {complaint.departmentName && (
                                 <div className="flex items-start space-x-3">
-                                    <MapPin className="h-5 w-5 text-gray-400 mt-0.5" />
+                                    <div className="p-1.5 bg-[#C3ACD0]/20 rounded-lg">
+                                        <MapPin className="h-4 w-4 text-[#674188]" />
+                                    </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">Department</p>
-                                        <p className="text-sm text-gray-500">{complaint.departmentName}</p>
+                                        <p className="text-xs font-medium text-[#7A668A]">Department</p>
+                                        <p className="text-sm font-medium text-[#281B34]">{complaint.departmentName}</p>
                                     </div>
                                 </div>
                             )}
                             {complaint.assignedStaffEmail && (
                                 <div className="flex items-start space-x-3">
-                                    <User className="h-5 w-5 text-gray-400 mt-0.5" />
+                                    <div className="p-1.5 bg-[#C3ACD0]/20 rounded-lg">
+                                        <User className="h-4 w-4 text-[#674188]" />
+                                    </div>
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">Assigned Staff</p>
-                                        <p className="text-sm text-gray-500">{complaint.assignedStaffEmail}</p>
+                                        <p className="text-xs font-medium text-[#7A668A]">Assigned Staff</p>
+                                        <p className="text-sm font-medium text-[#281B34]">{complaint.assignedStaffEmail}</p>
                                     </div>
                                 </div>
                             )}

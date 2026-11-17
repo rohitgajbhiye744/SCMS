@@ -2,34 +2,41 @@
 
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Palette: https://colorhunt.co/palette/fffbf5f7efe5c3acd0674188 */
+  --color-canvas: #FFFBF5;
+  --color-surface: #F7EFE5;
+  --color-accent: #C3ACD0;
+  --color-brand: #674188;
+  --color-brand-hover: #543372;
+  --color-brand-light: #F3ECF8;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 38 100% 98%;
+    --foreground: 275 40% 15%;
 
-    /* Sleek Jet Black / Slate Primary */
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 271 35% 39%;
+    --primary-foreground: 38 100% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 52% 93%;
+    --secondary-foreground: 271 35% 39%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 35 52% 93%;
+    --muted-foreground: 275 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 281 29% 75%;
+    --accent-foreground: 271 35% 39%;
   }
 
   * {
-    border-color: var(--color-gray-200);
+    border-color: #E8DEC8;
   }
   
   body {
-    background-color: var(--color-white);
-    color: var(--color-gray-900);
+    background-color: #FFFBF5;
+    color: #281B34;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
